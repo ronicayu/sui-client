@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 from sui.client.constants import TransactionType
 
-Category = namedtuple('Category', ['id', 'name', 'type', 'isSub', 'sub_ids'])
+Category = namedtuple('Category', ['id', 'name', 'type', 'hasSub', 'sub_ids'])
 
 
 @dataclass
@@ -39,9 +39,9 @@ def parse_categories(soup):
         id, category_type = parse_category(id_str)
         name = category.text
 
-        is_sub = 'ctit' in category.get('class')
+        has_sub = 'ctit' in category.get('class')
         sub_ids = []
-        if is_sub:
+        if has_sub:
             sub_class = id_str[:id_str.rfind('-a')]
             sub_categories = category.parent.findAll('a', class_=sub_class)
             sub_ids = []
@@ -49,7 +49,7 @@ def parse_categories(soup):
                 sub_id_str = sub_category.get('id')
                 sub_id, _ = parse_category(sub_id_str)
                 sub_ids.append(sub_id)
-        categories[name] = Category(id, name, category_type, is_sub, sub_ids)
+        categories[name] = Category(id, name, category_type, has_sub, sub_ids)
     return categories
 
 

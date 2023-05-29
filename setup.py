@@ -6,5 +6,5 @@ setup(
     description='SUI API (随手记)',
     author='Ronicayu',
     author_email='ronicayu@hotmail.com',
-    packages=['sui']
+    packages=['sui.client']
 )

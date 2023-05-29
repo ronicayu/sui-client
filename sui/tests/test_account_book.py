@@ -1,6 +1,4 @@
 from unittest import TestCase
-import requests
-
 from sui.client import AccountBook
 
 

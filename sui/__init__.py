@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 __project__ = 'sui'
 
-from . import client
+from sui import client

@@ -5,7 +5,7 @@ from .sui_api import SuiApi
 from .transaction import SuiTransaction
 
 
-class Client:
+class SuiClient:
     def __init__(self):
         self.suiApi = SuiApi()
         self.verbose = False
