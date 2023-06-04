@@ -52,6 +52,41 @@ class SuiClient:
                                       member_id=member_id,
                                       txn_time=dt)
 
+    def add_expense(self, account_name, amount: float, memo, store_name, project_name, category_name, member_name, dt):
+        account_id = self.account_book.get_account_id(account_name)
+        store_id = 0 if store_name is None else self.account_book.get_store_id(store_name)
+        project_id = 0 if project_name is None else self.account_book.get_project_id(project_name)
+        category_id = self.account_book.get_category_id(category_name)
+        member_id = 0 if member_name is None else self.account_book.get_member_id(member_name)
+
+        return self.suiApi.add_payout(store=store_id,
+                                      memo=memo,
+                                      project_id=project_id,
+                                      amount=amount,
+                                      account_id=account_id,
+                                      category_id=category_id,
+                                      member_id=member_id,
+                                      txn_time=dt)
+
+    def add_transfer(self, store_name, memo, category_name, project_name, member_name, dt, amount: float,
+                     into_account_name: str, buyer_account_name: str):
+        seller_id = self.account_book.get_account_id(into_account_name)
+        buyer_id = self.account_book.get_account_id(buyer_account_name)
+        store_id = 0 if store_name is None else self.account_book.get_store_id(store_name)
+        project_id = 0 if project_name is None else self.account_book.get_project_id(project_name)
+        category_id = self.account_book.get_category_id(category_name)
+        member_id = 0 if member_name is None else self.account_book.get_member_id(member_name)
+
+        return self.suiApi.add_transfer(store=store_id,
+                                        memo=memo,
+                                        category_id=category_id,
+                                        project_id=project_id,
+                                        member_id=member_id,
+                                        txn_time=dt,
+                                        amount=amount,
+                                        seller_id=seller_id,
+                                        buyer_id=buyer_id)
+
     def delete_transaction(self, txn_id):
         self.suiApi.delete_transaction([txn_id])
 
