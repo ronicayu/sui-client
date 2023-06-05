@@ -74,7 +74,7 @@ class SuiClient:
         buyer_id = self.account_book.get_account_id(buyer_account_name)
         store_id = 0 if store_name is None else self.account_book.get_store_id(store_name)
         project_id = 0 if project_name is None else self.account_book.get_project_id(project_name)
-        category_id = self.account_book.get_category_id(category_name)
+        category_id = 0 if category_name is None else self.account_book.get_category_id(category_name)
         member_id = 0 if member_name is None else self.account_book.get_member_id(member_name)
 
         return self.suiApi.add_transfer(store=store_id,
